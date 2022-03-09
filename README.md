@@ -1,2 +1,2 @@
 # scolombo30.github.io
-Repository for webPages
+Repository for hosting test web pages
