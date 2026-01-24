@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visual Archive | Sebastian Colombo</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="js/home-script.js" defer></script>
+</head>
+<body>
+    <div class="language-switch">
+        <button onclick="setHomeLanguage('en')" id="btn-en">EN</button>
+        <button onclick="setHomeLanguage('it')" id="btn-it">IT</button>
+    </div>
+
+    <header>
+        <h1 id="archive-name">Sebastian Colombo</h1>
+        <p class="bio" id="archive-bio"></p>
+    </header>
+
+    <main class="gallery-index">
+        <a href="standardized-dreams/index.html" class="series-card">
+            <div class="card-image" style="background-image: url('standardized-dreams/img/Orbiting-the-Earthbound.webp');"></div>
+            <div class="card-info">
+                <h2 id="sd-title"></h2>
+                <p id="sd-desc"></p>
+            </div>
+        </a>
+
+        <a href="silhouettes/index.html" class="series-card greyed">
+            <div class="card-image"></div>
+            <div class="card-info">
+                <h2 id="os-title"></h2>
+                <p id="os-desc"></p>
+            </div>
+        </a>
+    </main>
+</body>
+</html>

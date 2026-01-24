@@ -1,0 +1,308 @@
+:root {
+    --bg-color: #0d0d0d;
+    --text-color: #e0e0e0;
+    --accent-color: #ff3e3e;
+    --concrete-grey: #2a2a2a;
+    --font-main: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* --- Media Queries Mobile --- */
+@media (max-width: 768px) {
+    header {
+        margin-bottom: 40px;
+    }
+
+    h1 {
+        font-size: 2.2rem;
+    }
+
+    .gallery-index {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .card-info h2 {
+        font-size: 1.2rem;
+    }
+
+    .series-header h1 {
+        font-size: 2.2rem;
+        line-height: 1.1;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        margin-bottom: 20px;
+    }
+
+    .series-header p {
+        font-size: 1rem;
+        line-height: 1.4;
+        color: var(--dim-text);
+    }
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--font-main);
+    line-height: 1.6;
+    padding: 40px 20px;
+}
+
+/* --- Header --- */
+header {
+    max-width: 900px;
+    margin: 0 auto 80px auto;
+    text-align: left;
+}
+
+h1 {
+    font-size: 3rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+    margin-bottom: 10px;
+}
+
+/* --- Link Styling Reset --- */
+a, .back-link {
+    color: var(--text-color);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+
+a:visited, .back-link:visited {
+    color: var(--text-color);
+}
+
+
+a:hover, .back-link:hover {
+    color: var(--accent-color);
+    opacity: 0.8;
+}
+
+
+.back-link {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 40px;
+    padding: 10px 0;
+    border-bottom: 1px solid transparent;
+}
+
+.back-link:hover {
+    border-bottom: 1px solid var(--accent-color);
+}
+
+nav {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px 0;
+}
+
+.bio {
+    font-size: 1.1rem;
+    color: #888;
+    max-width: 500px;
+}
+
+.gallery-index {
+    max-width: 900px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+}
+
+.series-card {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    transition: transform 0.4s ease;
+}
+
+.series-card:hover {
+    transform: translateY(-5px);
+}
+
+.card-image {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background-size: cover;
+    background-position: center;
+    background-color: var(--concrete-grey);
+    filter: grayscale(100%) contrast(1.1);
+    transition: filter;
+    border-radius: 5px;
+}
+
+/* --- Custom Audio Player --- */
+.audio-player {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: rgba(16,19,21,0.85);
+    backdrop-filter: blur(8px);
+    padding: 10px 20px;
+    border-radius: 4px;
+    border: 1px solid var(--concrete-grey);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    z-index: 100;
+    transition: opacity 0.5s ease;
+}
+
+.audio-player span {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--accent-color);
+    font-weight: bold;
+    text-align: center;
+}
+
+audio {
+    height: 30px;
+    width: 200px;
+    filter: invert(100%) hue-rotate(180deg) brightness(1.5);
+}
+
+.audio-player.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.language-switch {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    display: flex;
+    gap: 10px;
+}
+
+.language-switch button {
+    background: none;
+    border: 1px solid var(--accent-color);
+    color: var(--text-color);
+    padding: 5px 12px;
+    cursor: pointer;
+    font-family: var(--font-main);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    opacity: 0.6;
+}
+
+.language-switch button:hover, 
+.language-switch button.active {
+    opacity: 1;
+    background: var(--accent-color);
+    color: white;
+    border-color: var(--accent-color);
+}
+
+[id^="archive-"], 
+[id^="sd-"], 
+[id^="os-"],
+.card-title, 
+.card-desc {
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+body.loaded [id^="archive-"], 
+body.loaded [id^="sd-"], 
+body.loaded [id^="os-"],
+body.loaded .card-title, 
+body.loaded .card-desc {
+    opacity: 1;
+}
+
+/* --- Gallery Index & Cards Optimization --- */
+
+.gallery-index {
+    max-width: 900px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+}
+
+.series-card {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    position: relative;
+    overflow: hidden; /* Taglia l'immagine durante lo zoom */
+    border-radius: 4px;
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.card-image {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background-size: cover;
+    background-position: center;
+    background-color: var(--concrete-grey);
+    filter: grayscale(100%) brightness(0.6) contrast(1.1); /* Più cupo di base */
+    transition: filter 0.8s ease, transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.card-info h2 {
+    margin-top: 15px;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: color 0.4s ease, transform 0.4s ease;
+}
+
+.card-info p {
+    font-size: 0.9rem;
+    color: #666; /* Testo descrizione più spento */
+    transition: color 0.4s ease;
+}
+
+/* --- Hover Effects --- */
+
+.series-card:hover {
+    transform: translateY(-8px); /* La card si alza leggermente */
+}
+
+/* --- Hover Effects Puliti (Solo Colore e Zoom Interno) --- */
+
+.series-card:hover .card-image {
+    filter: grayscale(0%) brightness(1) contrast(1); /* Torna il colore */
+    transform: scale(1.08); /* Zoom fluido dell'immagine */
+}
+
+.series-card:hover h2 {
+    color: var(--accent-color); /* Cambia solo il colore in rosso */
+    /* rimosso translateX per evitare lo spostamento a destra */
+}
+
+.series-card:hover p {
+    color: var(--text-color); /* La descrizione si accende leggermente */
+}
+
+/* Rimosso anche lo spostamento verso l'alto della card intera per un look più statico */
+.series-card:hover {
+    transform: none; 
+}
+
+/* --- Focus Selettivo (Fade-out delle altre card) --- */
+.gallery-index:has(.series-card:hover) .series-card:not(:hover) {
+    opacity: 0.3;
+    filter: blur(1px); /* Piccolo blur di coerenza con le serie */
+}
+
