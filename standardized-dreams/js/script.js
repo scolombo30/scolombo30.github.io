@@ -70,6 +70,9 @@ window.onload = () => {
     // Check if a language is saved, otherwise use 'en' by default
     const savedLang = localStorage.getItem('preferredLang') || 'en';
     window.setLanguage(savedLang);
+
+    const year = new Date().getFullYear();
+    document.querySelector('.footer-year').textContent = year;
 };
 
 // Registriamo il plugin per lo scroll

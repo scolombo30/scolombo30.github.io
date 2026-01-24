@@ -201,3 +201,47 @@ body:has(.photo-section:hover) .series-footer {
     filter: blur(1px) grayscale(100%);
     transition: all 0.4s ease;
 }
+
+.main-footer {
+    max-width: 900px;
+    margin: 100px auto 40px auto; /* Tanto spazio sopra per non soffocare le foto */
+    padding: 40px 0;
+    border-top: 1px solid var(--concrete-grey); /* Una linea sottile di divisione */
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.main-footer p, .main-footer span, .main-footer a {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #666; /* Grigio scuro per non distrarre dalle foto */
+}
+
+.main-footer a {
+    transition: color 0.3s ease;
+}
+
+.main-footer a:hover {
+    color: var(--accent-color);
+}
+
+.separator {
+    margin: 0 10px;
+    color: var(--concrete-grey);
+}
+
+/* Ottimizzazione Mobile */
+@media (max-width: 768px) {
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+    }
+}

@@ -10,3 +10,9 @@ Thumbs.db
 
 # Project files
 *.log
+
+#Pycharm
+utils-script/.idea/
+
+# Generated audio in scripts
+utils-script/commentary_voice/*.mp3

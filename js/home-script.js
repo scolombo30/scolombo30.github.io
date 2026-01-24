@@ -1,13 +1,13 @@
 const homeData = {
     en: {
-        bio: "Visual explorations of brutalist landscapes, urban nostalgia, and silent peripheries.",
+        bio: "A visual archive dedicated to photographic narratives, capturing the stillness of urban landscapes and the intersections of memory.",
         sdTitle: "Standardized Dreams",
         sdDesc: "An inquiry into the soul of post-soviet concrete.",
         osTitle: "Observing Silhouettes",
         osDesc: "A diptych on time and observation. Coming soon."
     },
     it: {
-        bio: "Esplorazioni visive di paesaggi brutalisti, nostalgia urbana e periferie silenziose.",
+        bio: "Un archivio visivo dedicato a narrazioni fotografiche, catturando l'immobilità dei paesaggi urbani e le intersezioni della memoria.",
         sdTitle: "Standardized Dreams",
         sdDesc: "Un'indagine sull'anima del cemento post-sovietico.",
         osTitle: "Observing Silhouettes",
@@ -47,4 +47,7 @@ window.setHomeLanguage = function(lang) {
 window.onload = () => {
     const savedLang = localStorage.getItem('preferredLang') || 'en';
     window.setHomeLanguage(savedLang);
+
+    const year = new Date().getFullYear();
+    document.querySelector('.footer-year').textContent = year;
 };
