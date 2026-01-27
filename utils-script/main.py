@@ -5,10 +5,10 @@ import subprocess
 
 # Config
 LANGUAGES = ['ENG', 'ITA']
-INPUT_FILE_FOLDER = "commentary_script"
-PHOTO_SERIES_NAME = "standardized_dreams"
-OUTPUT_FILE = f"commentary_voice/[lang]_[voice]_{PHOTO_SERIES_NAME}_narration.mp3"
-VOICES = {'ENG': ['en-CA-LiamNeural', 'en-IE-EmilyNeural'],
+INPUT_FILE_FOLDER = "observing_silhouettes/commentary_script"
+PHOTO_SERIES_NAME = "observing_silhouettes"
+OUTPUT_FILE = f"observing_silhouettes/commentary_voice/[lang]_[voice]_{PHOTO_SERIES_NAME}_narration.mp3"
+VOICES = {'ENG': ['en-IE-EmilyNeural'], #'en-CA-LiamNeural',
           'ITA': ['it-IT-IsabellaNeural']}
 RATES = {
     'ENG': '-8%',

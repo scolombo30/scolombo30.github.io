@@ -34,7 +34,6 @@ const seriesData = {
 };
 
 window.setLanguage = function(lang) {
-    // Save selected language to localStorage
     localStorage.setItem('preferredLang', lang);
 
     const data = seriesData[lang];
@@ -52,7 +51,6 @@ window.setLanguage = function(lang) {
         }
     });
 
-    // Random audio selection
     const audioPlayer = document.getElementById('main-audio');
     const randomAudio = data.audioFiles[Math.floor(Math.random() * data.audioFiles.length)];
     if (audioPlayer) {
@@ -60,14 +58,12 @@ window.setLanguage = function(lang) {
         audioPlayer.load();
     }
     
-    // Button style update
     document.querySelectorAll('.language-switch button').forEach(b => b.classList.remove('active'));
     const activeBtn = document.getElementById(`btn-${lang}`);
     if (activeBtn) activeBtn.classList.add('active');
 };
 
 window.onload = () => {
-    // Check if a language is saved, otherwise use 'en' by default
     const savedLang = localStorage.getItem('preferredLang') || 'en';
     window.setLanguage(savedLang);
 
@@ -75,10 +71,8 @@ window.onload = () => {
     document.querySelector('.footer-year').textContent = year;
 };
 
-// Registriamo il plugin per lo scroll
 gsap.registerPlugin(ScrollTrigger);
 
-// Animazione per ogni sezione fotografica
 document.querySelectorAll('.photo-section').forEach((section) => {
     gsap.from(section, {
         opacity: 0,
@@ -87,7 +81,7 @@ document.querySelectorAll('.photo-section').forEach((section) => {
         ease: "power2.out",
         scrollTrigger: {
             trigger: section,
-            start: "top 85%", // Inizia quando la sezione è quasi visibile
+            start: "top 85%",
             toggleActions: "play none none reverse"
         }
     });
@@ -95,13 +89,11 @@ document.querySelectorAll('.photo-section').forEach((section) => {
 
 window.addEventListener('load', () => {
     const audio = document.getElementById('main-audio');
-    const delay = 500; // 2 secondi di ritardo
+    const delay = 500;
 
     setTimeout(() => {
-        // Proviamo a far partire l'audio
         audio.play().catch(error => {
             console.log("Autoplay bloccato dal browser. L'utente deve interagire prima.");
-            // Opzionale: mostra un messaggio o cambia l'icona del player
         });
     }, delay);
 });
