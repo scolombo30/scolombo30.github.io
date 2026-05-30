@@ -40,11 +40,10 @@ window.setLanguage = function(lang) {
 
     document.getElementById('label-title').innerText = data.title;
     document.getElementById('label-description').innerText = data.description;
-    document.getElementById('label-back').innerText = data.back;
     document.getElementById('label-footer').innerText = data.footer;
 
     const sections = document.querySelectorAll('.photo-section');
-    sections.forEach((section, index) => {
+    sections.forEach(function(section, index) {
         if (data.captions[index]) {
             section.querySelector('.cap-h').innerText = data.captions[index].h3;
             section.querySelector('.cap-p').innerText = data.captions[index].p;
@@ -52,48 +51,109 @@ window.setLanguage = function(lang) {
     });
 
     const audioPlayer = document.getElementById('main-audio');
-    const randomAudio = data.audioFiles[Math.floor(Math.random() * data.audioFiles.length)];
+    var randomAudio = data.audioFiles[Math.floor(Math.random() * data.audioFiles.length)];
     if (audioPlayer) {
         audioPlayer.src = randomAudio;
         audioPlayer.load();
     }
-    
-    document.querySelectorAll('.language-switch button').forEach(b => b.classList.remove('active'));
-    const activeBtn = document.getElementById(`btn-${lang}`);
+
+    document.querySelectorAll('.language-switch button').forEach(function(b) { b.classList.remove('active'); });
+    var activeBtn = document.getElementById('btn-' + lang);
     if (activeBtn) activeBtn.classList.add('active');
 };
 
-window.onload = () => {
-    const savedLang = localStorage.getItem('preferredLang') || 'en';
+window.onload = function() {
+    var savedLang = localStorage.getItem('preferredLang') || 'en';
     window.setLanguage(savedLang);
 
-    const year = new Date().getFullYear();
-    document.querySelector('.footer-year').textContent = year;
+    var yearEl = document.querySelector('.footer-year');
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Series header blur reveal
+    var headerReveals = document.querySelectorAll('[data-reveal-blur]');
+    if (headerReveals.length) {
+        gsap.to(headerReveals, {
+            opacity: 1,
+            filter: 'blur(0px)',
+            y: 0,
+            duration: 1.2,
+            stagger: 0.2,
+            ease: 'power3.out',
+            scrollTrigger: {
+                trigger: '.series-header',
+                start: 'top 85%',
+                toggleActions: 'play none none reverse'
+            }
+        });
+    }
+
+    // Photo sections: scale + fade reveal with scrub
+    var photoSections = document.querySelectorAll('[data-reveal-scale]');
+    if (photoSections.length) {
+        photoSections.forEach(function(section) {
+            gsap.to(section, {
+                opacity: 1,
+                scale: 1,
+                duration: 1.5,
+                ease: 'power2.out',
+                scrollTrigger: {
+                    trigger: section,
+                    start: 'top 85%',
+                    toggleActions: 'play none none reverse'
+                }
+            });
+        });
+    }
+
+    // Advanced: scale + opacity scrub on each photo image
+    photoSections.forEach(function(section) {
+        var img = section.querySelector('img');
+        if (!img) return;
+        gsap.fromTo(img,
+            { filter: 'grayscale(100%) brightness(0.4) contrast(1.1)', scale: 0.9 },
+            {
+                filter: 'grayscale(0%) brightness(1) contrast(1)',
+                scale: 1,
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: section,
+                    start: 'top bottom',
+                    end: 'center center',
+                    scrub: 1.5
+                }
+            }
+        );
+    });
+
+    // Caption scrub: opacity follows scroll
+    photoSections.forEach(function(section) {
+        var caption = section.querySelector('.caption');
+        if (!caption) return;
+        gsap.fromTo(caption,
+            { opacity: 0, y: 15 },
+            {
+                opacity: 1,
+                y: 0,
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: section,
+                    start: 'top 75%',
+                    end: 'center 60%',
+                    scrub: 1.2
+                }
+            }
+        );
+    });
 };
 
-gsap.registerPlugin(ScrollTrigger);
-
-document.querySelectorAll('.photo-section').forEach((section) => {
-    gsap.from(section, {
-        opacity: 0,
-        y: 50,
-        duration: 1.5,
-        ease: "power2.out",
-        scrollTrigger: {
-            trigger: section,
-            start: "top 85%",
-            toggleActions: "play none none reverse"
-        }
-    });
-});
-
-window.addEventListener('load', () => {
-    const audio = document.getElementById('main-audio');
-    const delay = 500;
-
-    setTimeout(() => {
-        audio.play().catch(error => {
-            console.log("Autoplay bloccato dal browser. L'utente deve interagire prima.");
+window.addEventListener('load', function() {
+    var audio = document.getElementById('main-audio');
+    if (!audio) return;
+    setTimeout(function() {
+        audio.play().catch(function() {
+            console.log("Autoplay blocked by browser. User interaction required.");
         });
-    }, delay);
+    }, 500);
 });

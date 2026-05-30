@@ -19,35 +19,67 @@ window.setHomeLanguage = function(lang) {
     localStorage.setItem('preferredLang', lang);
     const data = homeData[lang];
 
-    if(document.getElementById('archive-bio')) {
-        document.getElementById('archive-bio').innerText = data.bio;
-    }
+    const bio = document.getElementById('archive-bio');
+    if (bio) bio.innerText = data.bio;
 
-    if(document.getElementById('sd-title')) {
-        document.getElementById('sd-title').innerText = data.sdTitle;
-    }
-    if(document.getElementById('sd-desc')) {
-        document.getElementById('sd-desc').innerText = data.sdDesc;
-    }
+    const sdTitle = document.getElementById('sd-title');
+    if (sdTitle) sdTitle.innerText = data.sdTitle;
 
-    if(document.getElementById('os-title')) {
-        document.getElementById('os-title').innerText = data.osTitle;
-    }
-    if(document.getElementById('os-desc')) {
-        document.getElementById('os-desc').innerText = data.osDesc;
-    }
+    const sdDesc = document.getElementById('sd-desc');
+    if (sdDesc) sdDesc.innerText = data.sdDesc;
 
-    document.body.classList.add('loaded');
-    
+    const osTitle = document.getElementById('os-title');
+    if (osTitle) osTitle.innerText = data.osTitle;
+
+    const osDesc = document.getElementById('os-desc');
+    if (osDesc) osDesc.innerText = data.osDesc;
+
     document.querySelectorAll('.language-switch button').forEach(b => b.classList.remove('active'));
-    const activeBtn = document.getElementById(`btn-${lang}`);
+    const activeBtn = document.getElementById('btn-' + lang);
     if (activeBtn) activeBtn.classList.add('active');
 };
 
-window.onload = () => {
+window.onload = function() {
     const savedLang = localStorage.getItem('preferredLang') || 'en';
     window.setHomeLanguage(savedLang);
 
-    const year = new Date().getFullYear();
-    document.querySelector('.footer-year').textContent = year;
+    const yearEl = document.querySelector('.footer-year');
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Hero blur reveal with stagger
+    const heroReveals = document.querySelectorAll('.hero-content [data-reveal-blur]');
+    if (heroReveals.length) {
+        gsap.to(heroReveals, {
+            opacity: 1,
+            filter: 'blur(0px)',
+            y: 0,
+            duration: 1.2,
+            stagger: 0.25,
+            ease: 'power3.out',
+            scrollTrigger: {
+                trigger: '.hero',
+                start: 'top 80%',
+                toggleActions: 'play none none reverse'
+            }
+        });
+    }
+
+    // Card index staggered reveal
+    const cards = document.querySelectorAll('[data-reveal]');
+    if (cards.length) {
+        gsap.to(cards, {
+            opacity: 1,
+            y: 0,
+            duration: 1,
+            stagger: 0.2,
+            ease: 'power2.out',
+            scrollTrigger: {
+                trigger: '.gallery-index',
+                start: 'top 85%',
+                toggleActions: 'play none none reverse'
+            }
+        });
+    }
 };

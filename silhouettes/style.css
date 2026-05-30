@@ -1,84 +1,41 @@
-/* --- Specific Styles for Observing Silhouettes & Series --- */
-:root {
-    --bg-color: #0a0a0a;
-    --text-color: #ffffff;
-    --dim-text: #888;
-}
-
-body {
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    font-family: 'Helvetica Neue', Arial, sans-serif;
-    overflow-x: hidden;
-}
-
 .story-container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 100px 20px;
+    padding: 40px 20px 120px;
 }
 
-.big-link {
-    font-size: 1.2rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    text-decoration: none;
-    color: var(--accent-color);
-}
-
-/* --- SEZIONE FOTO (Rimpicciolita) --- */
 .photo-section {
-    position: relative;
-    max-width: 800px;           /* Forza la dimensione più piccola delle foto */
-    margin: 0 auto 150px auto;  /* Centra e dà spazio verticale */
+    max-width: 900px;
+    margin: 0 auto 140px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    transition: transform 0.8s cubic-bezier(0.2, 1, 0.3, 1);
-    z-index: 1;
-    cursor: crosshair;
+    position: relative;
 }
 
 .photo-section img {
-    width: 100%;                /* Segue la larghezza del contenitore (800px) */
-    max-height: 85vh;           /* Impedisce alla foto di uscire dallo schermo in altezza */
+    width: 100%;
+    max-height: 85vh;
     object-fit: contain;
-    display: block;
-    filter: grayscale(100%) brightness(0.7) contrast(1.1);
-    transition: filter 0.8s ease, transform 0.8s ease;
-    border-radius: 5px;
+    border-radius: 12px;
+    filter: grayscale(100%) brightness(0.6) contrast(1.1);
+    transition: filter 0.8s cubic-bezier(0.32, 0.72, 0, 1), transform 0.8s cubic-bezier(0.32, 0.72, 0, 1);
+    will-change: transform, opacity, filter;
+    cursor: crosshair;
 }
 
-/* --- DIDASCALIE --- */
+.photo-section:hover img {
+    filter: grayscale(0%) brightness(1) contrast(1);
+}
+
 .caption {
     width: 100%;
     max-width: 600px;
     text-align: center;
-    margin-top: 25px;
+    margin-top: 28px;
     opacity: 0.3;
-    transition: opacity 0.6s ease, transform 0.6s ease;
+    transition: opacity 0.5s cubic-bezier(0.32, 0.72, 0, 1), transform 0.5s cubic-bezier(0.32, 0.72, 0, 1);
     transform: translateY(10px);
-}
-
-.caption h3 {
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    margin-bottom: 10px;
-    font-size: 0.9rem;
-    color: var(--dim-text);
-}
-
-.caption p {
-    font-size: 1.1rem;
-    font-style: italic;
-    line-height: 1.5;
-}
-
-/* --- EFFETTI HOVER --- */
-.photo-section:hover img {
-    filter: grayscale(0%) brightness(1) contrast(1);
-    transform: scale(1.02);
 }
 
 .photo-section:hover .caption {
@@ -86,13 +43,58 @@ body {
     transform: translateY(0);
 }
 
-/* --- EFFETTO FOCUS (BLUR ALTRI ELEMENTI) --- */
+.caption h3 {
+    font-family: 'Cabinet Grotesk', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #555;
+    margin-bottom: 8px;
+}
+
+.caption p {
+    font-family: 'Geist', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 300;
+    font-style: italic;
+    color: #888;
+    line-height: 1.6;
+}
+
+.series-footer {
+    padding: 120px 20px;
+    text-align: center;
+}
+
+.series-footer .divider {
+    width: 40px;
+    height: 2px;
+    background: #ff3e3e;
+    margin: 0 auto 32px;
+}
+
+.series-footer .big-link {
+    font-family: 'Cabinet Grotesk', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #ff3e3e;
+    transition: color 0.25s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.series-footer .big-link:hover {
+    color: #ff6b35;
+}
+
 body:has(.photo-section:hover) .photo-section:not(:hover),
-body:has(.photo-section:hover) nav {
+body:has(.photo-section:hover) .island-nav {
     opacity: 0.15;
     filter: blur(4px) grayscale(100%);
     transition: all 0.8s ease;
 }
+
 body:has(.photo-section:hover) .series-header,
 body:has(.photo-section:hover) .series-footer {
     opacity: 0.15;
@@ -100,49 +102,32 @@ body:has(.photo-section:hover) .series-footer {
     transition: all 0.4s ease;
 }
 
-/* --- FOOTER --- */
-.main-footer {
-    max-width: 900px;
-    margin: 100px auto 40px auto;
-    padding: 40px 0;
-    border-top: 1px solid #333;
+[data-reveal] {
+    opacity: 0;
+    transform: translateY(40px);
 }
 
-.series-footer {
-    padding: 100px 0;
-    text-align: center;
+[data-reveal-scale] {
+    opacity: 0;
+    transform: scale(0.88);
 }
 
-.footer-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 20px;
-}
-
-.main-footer p, .main-footer span, .main-footer a {
-    font-size: 0.7rem;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    color: #666;
-}
-
-/* --- RESPONSIVE --- */
 @media (max-width: 768px) {
+    .story-container {
+        padding: 20px 16px 60px;
+    }
+
     .photo-section {
-        max-width: 100%;        /* Su mobile usa tutto lo spazio disponibile */
-        margin-bottom: 100px;
+        max-width: 100%;
+        margin-bottom: 80px;
     }
 
     .photo-section img {
-        max-height: 65vh;
+        max-height: 60vh;
+        border-radius: 6px;
     }
 
-        .footer-content {
-        flex-direction: column;
-        text-align: center;
-        gap: 15px;
+    .caption p {
+        font-size: 0.9rem;
     }
-
 }

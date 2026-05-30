@@ -35,36 +35,113 @@ window.setLanguage = function(lang) {
     document.getElementById('desc-2').innerText = data.p2;
 
     document.getElementById('label-footer').innerText = data.footer;
-    
-    const labelAudio = document.getElementById('label-transmission');
+
+    var labelAudio = document.getElementById('label-transmission');
     if (labelAudio) labelAudio.innerText = data.audioLabel;
 
-    const audio = document.getElementById('main-audio');
+    var audio = document.getElementById('main-audio');
     if (audio) {
-        audio.src = `audio/${lang}_observing_silhouettes.mp3`;
+        audio.src = 'audio/' + lang + '_observing_silhouettes.mp3';
         audio.load();
     }
 
-    document.querySelectorAll('.language-switch button').forEach(b => b.classList.remove('active'));
-    document.getElementById(`btn-${lang}`).classList.add('active');
+    document.querySelectorAll('.language-switch button').forEach(function(b) { b.classList.remove('active'); });
+    var activeBtn = document.getElementById('btn-' + lang);
+    if (activeBtn) activeBtn.classList.add('active');
 };
 
-window.onload = () => {
-    const savedLang = localStorage.getItem('preferredLang') || 'en';
+window.onload = function() {
+    var savedLang = localStorage.getItem('preferredLang') || 'en';
     window.setLanguage(savedLang);
-    
-    if (document.querySelector('.footer-year')) {
-        document.querySelector('.footer-year').textContent = new Date().getFullYear();
+
+    var yearEl = document.querySelector('.footer-year');
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Series header blur reveal
+    var headerReveals = document.querySelectorAll('[data-reveal-blur]');
+    if (headerReveals.length) {
+        gsap.to(headerReveals, {
+            opacity: 1,
+            filter: 'blur(0px)',
+            y: 0,
+            duration: 1.2,
+            stagger: 0.2,
+            ease: 'power3.out',
+            scrollTrigger: {
+                trigger: '.series-header',
+                start: 'top 85%',
+                toggleActions: 'play none none reverse'
+            }
+        });
     }
+
+    // Photo sections: scale + fade reveal
+    var photoSections = document.querySelectorAll('[data-reveal-scale]');
+    if (photoSections.length) {
+        photoSections.forEach(function(section) {
+            gsap.to(section, {
+                opacity: 1,
+                scale: 1,
+                duration: 1.5,
+                ease: 'power2.out',
+                scrollTrigger: {
+                    trigger: section,
+                    start: 'top 85%',
+                    toggleActions: 'play none none reverse'
+                }
+            });
+        });
+    }
+
+    // Advanced: image filter + scale scrub
+    photoSections.forEach(function(section) {
+        var img = section.querySelector('img');
+        if (!img) return;
+        gsap.fromTo(img,
+            { filter: 'grayscale(100%) brightness(0.4) contrast(1.1)', scale: 0.9 },
+            {
+                filter: 'grayscale(0%) brightness(1) contrast(1)',
+                scale: 1,
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: section,
+                    start: 'top bottom',
+                    end: 'center center',
+                    scrub: 1.5
+                }
+            }
+        );
+    });
+
+    // Caption scrub
+    photoSections.forEach(function(section) {
+        var caption = section.querySelector('.caption');
+        if (!caption) return;
+        gsap.fromTo(caption,
+            { opacity: 0, y: 15 },
+            {
+                opacity: 1,
+                y: 0,
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: section,
+                    start: 'top 75%',
+                    end: 'center 60%',
+                    scrub: 1.2
+                }
+            }
+        );
+    });
 };
 
-window.addEventListener('load', () => {
-    const audio = document.getElementById('main-audio');
-    const delay = 500;
-
-    setTimeout(() => {
-        audio.play().catch(error => {
-            console.log("Autoplay bloccato dal browser. L'utente deve interagire prima.");
+window.addEventListener('load', function() {
+    var audio = document.getElementById('main-audio');
+    if (!audio) return;
+    setTimeout(function() {
+        audio.play().catch(function() {
+            console.log("Autoplay blocked by browser. User interaction required.");
         });
-    }, delay);
+    }, 500);
 });

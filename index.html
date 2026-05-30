@@ -12,30 +12,61 @@
     <script src="js/home-script.js" defer></script>
 </head>
 <body>
-    <div class="language-switch">
-        <button onclick="setHomeLanguage('en')" id="btn-en">EN</button>
-        <button onclick="setHomeLanguage('it')" id="btn-it">IT</button>
-    </div>
 
-    <header>
-        <h1 id="archive-name">Sebastian Colombo</h1>
-        <p class="bio" id="archive-bio"></p>
-    </header>
+    <nav class="island-nav">
+        <a href="index.html" class="nav-brand">SC</a>
+        <span class="nav-divider"></span>
+        <a href="standardized-dreams/index.html"><span>Standardized Dreams</span></a>
+        <a href="silhouettes/index.html"><span>Observing Silhouettes</span></a>
+        <span class="nav-divider"></span>
+        <div class="language-switch">
+            <button onclick="setHomeLanguage('en')" id="btn-en">EN</button>
+            <button onclick="setHomeLanguage('it')" id="btn-it">IT</button>
+        </div>
+    </nav>
 
-    <main class="gallery-index">
-        <a href="standardized-dreams/index.html" class="series-card">
-            <div class="card-image" style="background-image: url('standardized-dreams/img/Orbiting-the-Earthbound.webp');"></div>
-            <div class="card-info">
-                <h2 id="sd-title"></h2>
-                <p id="sd-desc"></p>
+    <section class="hero">
+        <div class="hero-background">
+            <img src="standardized-dreams/img/Orbiting-the-Earthbound.webp" alt="">
+        </div>
+        <div class="hero-content">
+            <h1 data-reveal-blur id="archive-name">Sebastian Colombo</h1>
+            <p data-reveal-blur class="bio" id="archive-bio"></p>
+            <div data-reveal-blur class="hero-cta">
+                <a href="#gallery" class="btn btn-primary">
+                    <span>Explore Archive</span>
+                    <span class="btn-icon">↓</span>
+                </a>
+                <a href="https://www.instagram.com/sc_photos_dump/" class="btn btn-ghost">
+                    <span>Instagram</span>
+                    <span class="btn-icon">↗</span>
+                </a>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <span>Scroll</span>
+            <div class="scroll-line"></div>
+        </div>
+    </section>
+
+    <main class="gallery-index" id="gallery">
+        <a href="standardized-dreams/index.html" class="series-card" data-reveal>
+            <div class="series-card-inner">
+                <div class="card-image" style="background-image: url('standardized-dreams/img/Orbiting-the-Earthbound.webp');"></div>
+                <div class="series-card-info">
+                    <h2 id="sd-title"></h2>
+                    <p id="sd-desc"></p>
+                </div>
             </div>
         </a>
 
-        <a href="silhouettes/index.html" class="series-card greyed">
-            <div class="card-image" style="background-image: url('silhouettes/img/Twin-Stars_-Silent-Hearts.webp');"></div>
-            <div class="card-info">
-                <h2 id="os-title"></h2>
-                <p id="os-desc"></p>
+        <a href="silhouettes/index.html" class="series-card" data-reveal>
+            <div class="series-card-inner">
+                <div class="card-image" style="background-image: url('silhouettes/img/Twin-Stars_-Silent-Hearts.webp');"></div>
+                <div class="series-card-info">
+                    <h2 id="os-title"></h2>
+                    <p id="os-desc"></p>
+                </div>
             </div>
         </a>
     </main>
@@ -44,11 +75,12 @@
         <div class="footer-content">
             <p>&copy; <span class="footer-year"></span> SEBASTIAN COLOMBO — ALL RIGHTS RESERVED</p>
             <div class="footer-links">
-                <span>Visual Archive v1.0</span>
-                <span class="separator">|</span>
+                <span>Visual Archive v2.0</span>
+                <span class="footer-separator">|</span>
                 <a href="https://www.instagram.com/sc_photos_dump/">Instagram</a>
             </div>
         </div>
     </footer>
+
 </body>
 </html>
